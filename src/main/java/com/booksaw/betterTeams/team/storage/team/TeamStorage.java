@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.team.storage.team;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.Transaction;
 import com.booksaw.betterTeams.Warp;
 
 import org.bukkit.inventory.Inventory;
@@ -150,6 +151,12 @@ public abstract class TeamStorage {
 	public abstract List<String> getWarps();
 
 	public abstract void setWarps(List<String> warps);
+
+	public abstract List<String> getTransactions();
+
+	public abstract void addTransaction(Transaction component);
+
+	public abstract void setTransactions(List<String> warps);
 
 	public abstract List<String> getClaimedChests();
 

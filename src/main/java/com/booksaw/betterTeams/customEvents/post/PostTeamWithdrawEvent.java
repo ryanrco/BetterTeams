@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.customEvents.post;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.Transaction;
 import com.booksaw.betterTeams.customEvents.TeamPlayerEvent;
 import com.booksaw.betterTeams.customEvents.TeamWithdrawEvent;
 import lombok.Getter;
@@ -27,6 +28,10 @@ public final class PostTeamWithdrawEvent extends TeamPlayerEvent implements Post
 		super(team, teamPlayer, false);
 
 		this.amount = amount;
+
+
+		Transaction transaction = new Transaction(teamPlayer.getPlayerUUID(), -amount, System.currentTimeMillis());
+		team.addTransaction(transaction);
 	}
 
 	public static HandlerList getHandlerList() {

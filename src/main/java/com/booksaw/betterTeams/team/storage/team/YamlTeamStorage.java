@@ -2,6 +2,7 @@ package com.booksaw.betterTeams.team.storage.team;
 
 import com.booksaw.betterTeams.Team;
 import com.booksaw.betterTeams.TeamPlayer;
+import com.booksaw.betterTeams.Transaction;
 import com.booksaw.betterTeams.Warp;
 import com.booksaw.betterTeams.team.storage.storageManager.YamlStorageManager;
 import org.bukkit.configuration.ConfigurationSection;
@@ -153,8 +154,18 @@ public abstract class YamlTeamStorage extends TeamStorage {
 	}
 
 	@Override
+	public List<String> getTransactions(){
+		return getConfig().getStringList("transactions");
+	}
+
+	@Override
 	public void setWarps(List<String> warps) {
 		setValue("warps", TeamStorageType.STRING, warps);
+	}
+
+	@Override
+	public void setTransactions(List<String> transactions) {
+		setValue("transactions", TeamStorageType.STRING, transactions);
 	}
 
 	@Override
@@ -208,6 +219,11 @@ public abstract class YamlTeamStorage extends TeamStorage {
 	@Override
 	public void addWarp(Warp component) {
 		// not needed
+	}
+
+	@Override
+	public void addTransaction(Transaction component) {
+		//not needed
 	}
 
 	@Override

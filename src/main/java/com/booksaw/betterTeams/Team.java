@@ -306,6 +306,9 @@ public class Team {
 	@Getter
 	private final WarpSetComponent warps = new WarpSetComponent();
 
+	@Getter
+	private final TransactionSetComponent transactions = new TransactionSetComponent();
+
 	private org.bukkit.scoreboard.Team team;
 
 	/**
@@ -1629,6 +1632,16 @@ public class Team {
 	public void delWarp(String name) {
 		warps.remove(this, getWarp(name));
 		saveWarps();
+	}
+
+	public void saveTransactions(){
+		transactions.save(storage);
+	}
+
+	public void addTransaction(Transaction transaction){
+		transactions.add(this, transaction);
+		saveTransactions();
+
 	}
 
 	/**

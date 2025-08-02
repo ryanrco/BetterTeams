@@ -19,11 +19,15 @@ public class BetterTeamsDatabase extends Database {
 		createTableIfNotExists(TableName.ALLYREQUESTS,
 				"requestingTeamID VARCHAR(50) NOT NULL, receivingTeamID VARCHAR(50) NOT NULL, PRIMARY KEY(requestingTeamID, receivingTeamID), FOREIGN KEY (requestingTeamID) REFERENCES "
 						+ TableName.TEAM
-						+ "(teamID) ON DELETE CASCADE, FOREIGN KEY (receivingTeamID) REFERENCES "
+		 				+ "(teamID) ON DELETE CASCADE, FOREIGN KEY (receivingTeamID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
 		createTableIfNotExists(TableName.WARPS,
 				"TeamID VARCHAR(50) NOT NULL, warpInfo VARCHAR(200) NOT NULL, PRIMARY KEY(TeamID, warpInfo), FOREIGN KEY (TeamID) REFERENCES "
+						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
+
+		createTableIfNotExists(TableName.TRANSACTIONS,
+				"TeamID VARCHAR(50) NOT NULL, transactionInfo VARCHAR(200) NOT NULL, PRIMARY KEY(TeamID, transactionInfo), FOREIGN KEY (TeamID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
 
 		createTableIfNotExists(TableName.CHESTCLAIMS,
@@ -38,6 +42,9 @@ public class BetterTeamsDatabase extends Database {
 				"team1ID VARCHAR(50) NOT NULL, team2ID VARCHAR(50) NOT NULL, PRIMARY KEY(team1ID, team2ID), FOREIGN KEY (team1ID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE, FOREIGN KEY (team2ID) REFERENCES "
 						+ TableName.TEAM + "(teamID) ON DELETE CASCADE");
+
+
+
 
 		// Add anchor columns if they don't exist
 		if (!hasColumn(TableName.TEAM, "anchor")) {

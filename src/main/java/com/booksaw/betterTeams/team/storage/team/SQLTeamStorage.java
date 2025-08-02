@@ -229,6 +229,29 @@ public class SQLTeamStorage extends TeamStorage {
 	}
 
 	@Override
+	public List<String> getTransactions() {
+
+		List<String> toReturn = new ArrayList<>();
+
+		try (PreparedStatement ps = storageManager.getDatabase().selectWhere("*", TableName.TRANSACTIONS, getCondition())) {
+
+			ResultSet result = ps.executeQuery();
+			if (!result.first()) {
+				return toReturn;
+			}
+			do {
+
+				toReturn.add(result.getString("transactionInfo"));
+
+			} while (result.next());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return toReturn;
+	}
+
+	@Override
 	public List<String> getClaimedChests() {
 
 		List<String> toReturn = new ArrayList<>();
@@ -300,6 +323,12 @@ public class SQLTeamStorage extends TeamStorage {
 	}
 
 	@Override
+	public void addTransaction(Transaction component) {
+		invalidateCache();
+		storageManager.getDatabase().insertRecord(TableName.TRANSACTIONS, "teamid, transactionInfo", "'" + team.getID() + "', '" + component.toString() + "'");
+	}
+
+	@Override
 	public void removeWarp(Warp component) {
 		invalidateCache();
 		storageManager.getDatabase().deleteRecord(TableName.WARPS,
@@ -365,6 +394,11 @@ public class SQLTeamStorage extends TeamStorage {
 	@Override
 	public void setWarps(List<String> warps) {
 		// not needed
+	}
+
+	@Override
+	public void setTransactions(List<String> warps) {
+		//not needed
 	}
 
 	@Override
